@@ -11,10 +11,11 @@
     $login_saisie = $_POST["login"];
     $mdp_saisie = $_POST["password"];
 
+    //hashage du mdp saisie qui va permettre la comparaison avec celui de la base de données
     $passwd_saisie_hash = hash("sha256", $mdp_saisie);
 
     //recuperation des donnees de la base de donnes
-    $sql = "SELECT * FROM Authentification WHERE login = '$login_saisie'";
+    $sqlPasswd = "SELECT passwd FROM Utilisateur WHERE login = '$login_saisie'"; // le mot de passe est hashé dans la base de données
     $result = mysqli_query($link, $sql);
 
 
