@@ -1,5 +1,4 @@
 <h1> Ce dépôt sert à héberger notre projet de fin de module PHP en R3.01 Développememt-Web </h1>
-<h2></h2>
 <p>
   Les deux étudiants travaillant sur ce dépôt sont réspectivement: <br>
   <ul>
