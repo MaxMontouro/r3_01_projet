@@ -1,36 +1,22 @@
 <?php
 
-function getAdmin($email, $password) {
-    require("connection.php"); // Assurez-vous d'inclure correctement votre fichier de connexion
 
-    // Préparez la requête avec des paramètres pour éviter les injections SQL
-    $query = "SELECT * FROM users WHERE email = :email";
-    $statement = $pdo->prepare($query);
-    $statement->execute(array(':email' => $email));
 
-    $admin = $statement->fetch(PDO::FETCH_ASSOC);
 
-    if ($admin) {
-        // Vérifiez le mot de passe avec password_verify (si le mot de passe est stocké de manière sécurisée avec password_hash)
-        if (password_verify($password, $admin['password'])) {
-            // Si le mot de passe correspond, retournez les informations de l'administrateur
-            return $admin;
-        }
-    }
+function getAdmin($email, $motdepasse){
 
-    return false; // Retourne false si les informations de connexion sont incorrectes
-}
-
-/*
-function getAdmin($email, $password){
-    if(require("connection.php")){
-        $req = $access->prepare("SELECT users.email, users.password FROM users WHERE email = ? AND password = ?");
+    if(require("connection.php"))
+    {
+        $req = $access->prepare("SELECT * FROM admin WHERE email = ? AND motdepasse = ?");
         
-        $req->execute(array($email, $password));
+        $req->execute(array($email, $motdepasse));
 
-        if($req->rowCount()==1){
+        if($req->rowCount()==1)
+        {
             $data = $req->fetch();
+
             return $data;
+
         } else {
             return false;
         }
@@ -38,26 +24,36 @@ function getAdmin($email, $password){
     }
 }
 
-*/
 
 
 
-function ajouter($nomCD, $dateSortie, $imagePochette, $prix){
+
+function ajouter($IDcd, $nomCD, $dateSortie, $imagePochette, $prix){
     if(require("connection.php")){
-        $req = $access->prepare("INSERT INTO cd (nomCD, dateSortie, imagePochette, prix) VALUES (?, ?, ?, ?)");
+        $req = $access->prepare("INSERT INTO cd (IDcd, nomCD, dateSortie, imagePochette, prix) VALUES (?, ?, ?, ?, ?)");
         
-        $req->execute(array($nomCD, $dateSortie, $imagePochette, $prix));
+        $req->execute(array($IDcd, $nomCD, $dateSortie, $imagePochette, $prix));
+
+        $req->closeCursor();
+    }
+}
+
+// On aurait pu juste faire une fonction
+function ajouterArtiste($id, $nom, $alias, $dateNaissance){
+    if(require("connection.php")){
+        $req = $access->prepare("INSERT INTO auteur (id, nom, alias, dateNaissance) VALUES (?, ?, ?, ?)");
+        
+        $req->execute(array($id, $nom, $alias, $dateNaissance));
 
         $req->closeCursor();
     }
 }
 
 
-
 function afficher(){
     $data = [];
     if(require("connection.php")){
-        $req = $access->prepare("SELECT * FROM cd JOIN auteur ON cd.id = auteur.id ORDER BY cd.ID DESC");
+        $req = $access->prepare("SELECT * FROM cd LEFT JOIN auteur ON cd.IDcd = auteur.id ORDER BY auteur.ID ASC");
 
         $req->execute();
 
@@ -72,12 +68,17 @@ function afficher(){
 
 
 
-function supprimer($id){
+function supprimer($IDcd){
     if(require("connection.php")){
-        $req = $access->prepare("DELETE FROM cd WHERE ID=?");
+        $req = $access->prepare("DELETE FROM auteur WHERE ID = ?;");
+        $req2 = $access->prepare("DELETE FROM cd WHERE IDcd =? ;");
 
-        $req->execute(array($id));
+        $req->execute(array($IDcd));
+        $req2->execute(array($IDcd));
     }
 }
+
+
+
 
 ?>

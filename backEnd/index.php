@@ -154,6 +154,10 @@ $cds = afficher();
       </ul>
     </div>
 
+
+
+    
+
     
 <header data-bs-theme="dark">
   <div class="collapse text-bg-dark" id="navbarHeader">
@@ -205,7 +209,10 @@ $cds = afficher();
               <p class="card-text"><strong><?= $cd->nomCD ?></p><p><?= $cd->alias ?></p><?= $cd->dateSortie ?></p></strong>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Acheter</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Acheter (panier)</button>
+                </div>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Consulter</button>
                 </div>
                 <small class="text-body-secondary"><?= $cd->prix ?> €</small>
               </div>
