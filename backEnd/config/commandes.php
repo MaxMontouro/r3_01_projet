@@ -1,8 +1,21 @@
 <?php
 
+// ajouter un utilisateur a la base de données
+function ajouterUser($nom, $prenom, $email, $motdepasse)
+{
+  if(require("connection.php"))
+  {
+    $req = $access->prepare("INSERT INTO utilisateurs (nom, prenom, email, motdepasse) VALUES (?, ?, ?, ?)");
 
+    $req->execute(array($nom, $prenom, $email, $motdepasse));
 
+    return true;
 
+    $req->closeCursor();
+  }
+}
+
+// get l'admin lors de la connection
 function getAdmin($email, $motdepasse){
 
     if(require("connection.php"))
@@ -38,7 +51,7 @@ function ajouter($IDcd, $nomCD, $dateSortie, $imagePochette, $prix){
     }
 }
 
-// On aurait pu juste faire une fonction
+// On aurait pu juste faire une fonction ajouter pour les deux
 function ajouterArtiste($id, $nom, $alias, $dateNaissance){
     if(require("connection.php")){
         $req = $access->prepare("INSERT INTO auteur (id, nom, alias, dateNaissance) VALUES (?, ?, ?, ?)");
@@ -49,7 +62,7 @@ function ajouterArtiste($id, $nom, $alias, $dateNaissance){
     }
 }
 
-
+// affichage des cds
 function afficher(){
     $data = [];
     if(require("connection.php")){
@@ -67,9 +80,10 @@ function afficher(){
 }
 
 
-
+// supprimer le cd
 function supprimer($IDcd){
     if(require("connection.php")){
+        // Pour l'instant problème de structure de bd, obligation de supprimer l'artiste en meme temps que le cd
         $req = $access->prepare("DELETE FROM auteur WHERE ID = ?;");
         $req2 = $access->prepare("DELETE FROM cd WHERE IDcd =? ;");
 
