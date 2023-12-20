@@ -88,7 +88,7 @@ function ajouterArtiste($id, $nom, $alias, $dateNaissance){
 
 function ajouterPanier($IDcdpanier, $nomCD, $dateSortie, $imagePochette, $prix){
     if(require("connection.php")){
-        $req = $access->prepare("INSERT INTO cd (IDcdpanier, nomCD, dateSortie, imagePochette, prix) VALUES (?, ?, ?, ?, ?)");
+        $req = $access->prepare("INSERT INTO panier (IDcdpanier, nomCD, dateSortie, imagePochette, prix) VALUES (?, ?, ?, ?, ?)");
         
         $req->execute(array($IDcdpanier, $nomCD, $dateSortie, $imagePochette, $prix));
 

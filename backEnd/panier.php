@@ -58,45 +58,37 @@ $paniers = afficherPanier();
 
 
 
-  <?php foreach($paniers as $panier): ?>
+  <?php foreach ($paniers as $panier): ?>
+    <tr>
+        <th scope="row"><?= $panier->IDcdpanier ?></th>
+        <td>
+            <img src="<?= $panier->imagePochette ?>" style="width: 20%">
+        </td>
+        <td><?= $panier->nomCD ?></td>
+        <td><?= $panier->dateSortie ?></td>
+        <td style="font-weight: bold; color: green;"><?= $panier->prix ?>€</td>
+        <td>
+            <form method="post">
+                <input type="hidden" name="IDcdpanier" value="<?= $panier->IDcdpanier ?>">
+                <button type="submit" name="supp" class="btn btn-warning">Supprimer</button>
+            </form>
+        </td>
+    </tr>
+<?php endforeach; ?>
 
-    <?php
-$IDcdpanier = $panier->IDcdpanier;
-?>
-
-<tr>
-  <th scope="row"><?= $panier->IDcdpanier ?></th>
-  <td>
-    <img src="<?= $panier->imagePochette ?>" style="width: 20%">
-  </td>
-  <td><?= $panier->nomCD ?></td>
-  <td><?= $panier->dateSortie ?></td>
-  <td style="font-weight: bold; color: green;"><?= $panier->prix ?>€</td>
-  <td>
-
-    <form method="post">
-    <input type="hidden" name="IDcdpanier" value="<?= $var ?>">
-    <button type="submit" name="supp" class="btn btn-warning"<?= $panier->IDcdpanier ?>>Supprimer</button>
-  </form>
-
-
-</td>
-</tr>
-<?php endforeach;?>
 
 <?php
-if(isset($_POST['supp'])){
-    if(isset($_POST['IDcdpanier'])){
-            try{
-                supprimerPanier($IDcdpanier);
-            } catch (Exception $e){
-                $e->getMessage();
-            }
+if (isset($_POST['supp'])) {
+    if (isset($_POST['IDcdpanier'])) {
+        try {
+            $IDcdpanierToDelete = $_POST['IDcdpanier']; 
+            supprimerPanier($IDcdpanierToDelete);
+        } catch (Exception $e) {
+            echo $e->getMessage(); 
         }
+    }
 }
-
 ?>
-
 
 
 

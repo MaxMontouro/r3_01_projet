@@ -202,57 +202,54 @@ $cds = afficher();
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
 
-      <?php foreach($cds as $cd): ?>
-
-        <?php
-$IDcd = $cd->IDcd;
-$nomCD = $cd->nomCD;
-$dateSortie = $cd->dateSortie;
-$imagePochette = $cd->imagePochette;
-$prix = $cd->prix;
-?>
-
-<div class="col">
-  <div class="card shadow-sm">
-      <title><?= $cd->nomCD ?></title><img src="<?= $cd->imagePochette ?>" alt="">
-    <div class="card-body">
-      <p class="card-text"><strong><?= $cd->nomCD ?></p><p><?= $cd->alias ?></p><?= $cd->dateSortie ?></p></strong>
-      <div class="d-flex justify-content-between align-items-center">
-
-      <form method="post">
-      <input type="hidden" name="IDcd" value="<?= $var ?>">
-      <input type="hidden" name="nomCD" value="<?= $var ?>">
-      <input type="hidden" name="dateSortie" value="<?= $var ?>">
-      <input type="hidden" name="imagePochette" value="<?= $var ?>">
-      <input type="hidden" name="prix" value="<?= $var ?>">
-          <button type="submit" class="btn btn-sm btn-outline-secondary" name="acheter">Acheter (panier)</button>
-      </form>
-      <?php
-if(isset($_POST['acheter'])){
-  if(isset($_POST['IDcd'])){
-          try{
-              ajouterPanier($IDcd,$nomCD, $dateSortie, $imagePochette, $prix);
-          } catch (Exception $e){
-              $e->getMessage();
-          }
-      }
-}
-
-
-?>
-
-
-
-        <small class="text-body-secondary"><?= $cd->prix ?> €</small>
-      </div>
+      <?php foreach ($cds as $cd): ?>
+    <div class="col">
+        <div class="card shadow-sm">
+            <title><?= $cd->nomCD ?></title>
+            <img src="<?= $cd->imagePochette ?>" alt="">
+            <div class="card-body">
+                <p class="card-text"><strong><?= $cd->nomCD ?></p>
+                <p><?= $cd->alias ?></p>
+                <?= $cd->dateSortie ?></p></strong>
+                <div class="d-flex justify-content-between align-items-center">
+                    <form method="post">
+                        <input type="hidden" name="IDcd" value="<?= $cd->IDcd ?>">
+                        <input type="hidden" name="nomCD" value="<?= $cd->nomCD ?>">
+                        <input type="hidden" name="dateSortie" value="<?= $cd->dateSortie ?>">
+                        <input type="hidden" name="imagePochette" value="<?= $cd->imagePochette ?>">
+                        <input type="hidden" name="prix" value="<?= $cd->prix ?>">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary" name="acheter">Acheter (panier)</button>
+                    </form>
+                    <small class="text-body-secondary"><?= $cd->prix ?> €</small>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-
-
 <?php endforeach; ?>
 
+<?php
+if (isset($_POST['acheter'])) {
+    if (
+        isset($_POST['IDcd']) &&
+        isset($_POST['nomCD']) &&
+        isset($_POST['dateSortie']) &&
+        isset($_POST['imagePochette']) &&
+        isset($_POST['prix'])
+    ) {
+        try {
+            $IDcdToAdd = $_POST['IDcd'];
+            $nomCDToAdd = $_POST['nomCD'];
+            $dateSortieToAdd = $_POST['dateSortie'];
+            $imagePochetteToAdd = $_POST['imagePochette'];
+            $prixToAdd = $_POST['prix'];
 
+            ajouterPanier($IDcdToAdd, $nomCDToAdd, $dateSortieToAdd, $imagePochetteToAdd, $prixToAdd);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+}
+?>
 
 
       </div>
