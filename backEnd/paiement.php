@@ -33,12 +33,16 @@ require("config/commandes.php");
         <div>
             <form method="post">
                 <div class="mb-3">
-                    <label for="cb" class="form-label">Carte Bancaire : </label>
-                    <input type="text" class="form-control" name="cb">
+                    <label for="cb" class="form-label" required>Carte Bancaire : </label>
+                    <input type="text" placeholder="1111-1111-1111-1111" class="form-control" name="cb">
                 </div>
                 <div class="mb-3">
-                    <label for="date_validite" class="form-label">Date de validité (MM/YYYY) : </label>
-                    <input type="text" class="form-control" name="date_validite">
+                    <label for="date_validite" class="form-label" required>Date de validité (MM/YYYY) : </label>
+                    <input type="text" class="form-control" placeholder="12/1234" name="date_validite">
+                </div>
+                <div class="mb-3">
+                    <label for="date_validite"  class="form-label" required>CVV (Code de vérification) : </label>
+                    <input type="text" class="form-control" placeholder="123" name="date_validite">
                 </div>
                 <button type="submit" name="vider" class="btn btn-primary">Payer</button>
             </form>
@@ -59,7 +63,7 @@ if (isset($_POST['vider'])){
             $carteBancaire = $_POST['cb'];
             $date_valide = $_POST['date_validite'];
 
-            if (strlen($carteBancaire) === 16 && $carteBancaire[0] === $carteBancaire[15]) {
+            if (strlen($carteBancaire) === 19 && $carteBancaire[0] === $carteBancaire[15]) {
                 $dateActuelle = strtotime(date('Y-m-d'));
                 $dateplus3mois = strtotime('+3 months', $dateActuelle);
 
@@ -77,7 +81,7 @@ if (isset($_POST['vider'])){
                     } else {
                         echo "La date de validité de la carte doit être supérieure à la date actuelle + 3 mois.";
                     }
-                } else {
+                }else {
                     echo "Format de date invalide. Utilisez le format MM/YYYY.";
                 }
             } else {
