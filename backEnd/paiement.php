@@ -20,12 +20,24 @@ require("config/commandes.php");
 </head>
 <body>
     
-<br>
-<br>
-<br>
-<br>
-<br>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.php">Vinylog</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+      </ul>
+
+      <div style="display: flex; justify-content: flex-end;">
+        <a href="deconnection.php" class="btn btn-danger">Se deconnecter</a>
+    </div>
+    </div>
+  </div>
+</nav>
 <div class="container-fluid d-flex justify-content-center align-items-center">
     <div class="row">
         <div class="col-md-10"></div>
@@ -41,8 +53,8 @@ require("config/commandes.php");
                     <input type="text" class="form-control" placeholder="12/1234" name="date_validite">
                 </div>
                 <div class="mb-3">
-                    <label for="date_validite"  class="form-label" required>CVV (Code de vérification) : </label>
-                    <input type="text" class="form-control" placeholder="123" name="date_validite">
+                    <label for="code"  class="form-label" required>CVV (Code de vérification) : </label>
+                    <input type="text" class="form-control" placeholder="123" name="code">
                 </div>
                 <button type="submit" name="vider" class="btn btn-primary">Payer</button>
             </form>
@@ -81,7 +93,7 @@ if (isset($_POST['vider'])){
                     } else {
                         echo "La date de validité de la carte doit être supérieure à la date actuelle + 3 mois.";
                     }
-                }else {
+                } else {
                     echo "Format de date invalide. Utilisez le format MM/YYYY.";
                 }
             } else {
