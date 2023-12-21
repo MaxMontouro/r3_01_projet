@@ -201,6 +201,7 @@ $cds = afficher();
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
+      
 
       <?php foreach ($cds as $cd): ?>
     <div class="col">
@@ -227,6 +228,9 @@ $cds = afficher();
     </div>
 <?php endforeach; ?>
 
+
+
+
 <?php
 if (isset($_POST['acheter'])) {
     if (
@@ -237,18 +241,19 @@ if (isset($_POST['acheter'])) {
         isset($_POST['prix'])
     ) {
         try {
-            $IDcdToAdd = $_POST['IDcd'];
-            $nomCDToAdd = $_POST['nomCD'];
-            $dateSortieToAdd = $_POST['dateSortie'];
-            $imagePochetteToAdd = $_POST['imagePochette'];
-            $prixToAdd = $_POST['prix'];
+            $IDcdAjout = $_POST['IDcd'];
+            $nomCdAjout = $_POST['nomCD'];
+            $dateSortieAjout = $_POST['dateSortie'];
+            $imagePochetteAjout = $_POST['imagePochette'];
+            $prixAjout = $_POST['prix'];
 
-            ajouterPanier($IDcdToAdd, $nomCDToAdd, $dateSortieToAdd, $imagePochetteToAdd, $prixToAdd);
+            ajouterPanier($IDcdAjout, $nomCdAjout, $dateSortieAjout, $imagePochetteAjout, $prixAjout);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
     }
 }
+
 ?>
 
 

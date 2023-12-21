@@ -155,5 +155,14 @@ function supprimer($IDcd){
     }
 }
 
+// vider le panier
+function viderPanier(){
+    if(require("connection.php")){
+        $req = $access->prepare("DELETE FROM panier");
+
+        $req->execute(array());
+    }
+}
+
 
 ?>

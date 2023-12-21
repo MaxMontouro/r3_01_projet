@@ -74,6 +74,7 @@ $paniers = afficherPanier();
             </form>
         </td>
     </tr>
+    
 <?php endforeach; ?>
 
 
@@ -96,6 +97,24 @@ if (isset($_POST['supp'])) {
   </tbody>
 </table>
 
+</div>
+
+<?php
+$totalPrix = 0;
+foreach ($paniers as $panier) {
+    $totalPrix += $panier->prix;
+}
+?>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h4>Total du panier: <?= $totalPrix ?>€</h4>
+        </div>
+        <div class="col">
+            <a href="paiement.php" class="btn btn-primary">Payer</a>
+        </div>
+    </div>
 </div>
 
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
