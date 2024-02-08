@@ -12,3 +12,8 @@
 </p>
 
 <h1></h1>
+<p>
+  Afin de réspecter au mieux les bonnes pratiques de sécurité.  
+  dans le dossier /backEnd/config remplacer le fichier config_exemple.php par config.php  
+  Les sections à compléter seront elles aussi à changer avec la configuration demandé. 
+</p>
