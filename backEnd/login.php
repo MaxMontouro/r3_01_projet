@@ -59,7 +59,7 @@ if(isset($_POST['envoyer'])){
     if(!empty($_POST['email'] AND !empty($_POST['motdepasse']))){
 
         $email = htmlspecialchars($_POST['email']);
-        $motdepasse = htmlspecialchars($_POST['motdepasse']);
+        $motdepasse = hash('sha512', htmlspecialchars($_POST['motdepasse']));
 
         $admin = getAdmin($email, $motdepasse);
 
